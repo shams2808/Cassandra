@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cassandra Brand Logo Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --text-main: #f8fafc;
+      --text-muted: #64748b;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 40px;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 450px));
+      gap: 24px;
+      max-width: 950px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.06), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-label {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Core Typographic styles */
+    .wordmark {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: #ffffff;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Concept 1: Mint Underscore Terminal */
+    .mint-text {
+      color: #05ffc4;
+      font-family: 'Fira Code', monospace;
+      font-weight: 600;
+      text-shadow: 0 0 12px rgba(5, 255, 196, 0.4);
+      margin-left: 2px;
+      animation: blink 1.2s infinite;
+    }
+
+    /* Concept 2: Coral Directory Slash */
+    .coral-slash {
+      color: #ff5f7e;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(255, 95, 126, 0.4);
+      margin-right: 4px;
+    }
+
+    /* Concept 3: Aqua Crystal Node Diamond */
+    .aqua-node {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #00f2fe;
+      transform: rotate(45deg);
+      margin-left: 8px;
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+    }
+
+    /* Concept 4: Amber Brackets Package */
+    .amber-bracket {
+      color: #ffb86c;
+      font-weight: 500;
+      text-shadow: 0 0 12px rgba(255, 184, 108, 0.4);
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .export-note {
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .code-box {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      color: #8da1b9;
+      margin-top: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      display: none;
+    }
+
+    .card:hover .code-box {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Cassandra brand design system</h1>
+  <p class="subtitle">
+    Interactive vector wordmarks styled with high-performance CSS glows. Move your cursor over each logo to reveal its raw layout specification.
+  </p>
+
+  <div class="grid">
+    <!-- Concept 1 -->
+    <div class="card" id="card-1">
+      <div class="card-label">Concept 1: Terminal Underscore</div>
+      <div class="logo-container">
+        <div class="wordmark" style="font-family: 'Fira Code', monospace; letter-spacing: -1.8px; font-weight: 600;">
+          cassandra<span class="mint-text">_</span>
+        </div>
+      </div>
+      <div class="code-box">
+        Color: Neon Mint (#05ffc4)<br>
+        Font: Fira Code (SemiBold)<br>
+        Theme: Shell Syntax / Execution
+      </div>
+    </div>
+
+    <!-- Concept 2 -->
+    <div class="card" id="card-2">
+      <div class="card-label">Concept 2: Directory Slash</div>
+      <div class="logo-container">
+        <div class="wordmark" style="font-weight: 700;">
+          <span class="coral-slash">/</span>cassandra
+        </div>
+      </div>
+      <div class="code-box">
+        Color: Bright Coral (#ff5f7e)<br>
+        Font: Plus Jakarta Sans (Bold)<br>
+        Theme: File Systems / Subdirectory Scope
+      </div>
+    </div>
+
+    <!-- Concept 3 -->
+    <div class="card" id="card-3">
+      <div class="card-label">Concept 3: Crystal Diamond Node</div>
+      <div class="logo-container">
+        <div class="wordmark" style="font-weight: 800;">
+          cassandra<span class="aqua-node"></span>
+        </div>
+      </div>
+      <div class="code-box">
+        Color: Electric Aqua (#00f2fe)<br>
+        Font: Plus Jakarta Sans (ExtraBold)<br>
+        Theme: Oracle Eye / AST Diamond Node
+      </div>
+    </div>
+
+    <!-- Concept 4 -->
+    <div class="card" id="card-4">
+      <div class="card-label">Concept 4: Bracket Scope</div>
+      <div class="logo-container">
+        <div class="wordmark" style="font-weight: 700; letter-spacing: -0.8px;">
+          <span class="amber-bracket">[</span>cassandra<span class="amber-bracket">]</span>
+        </div>
+      </div>
+      <div class="code-box">
+        Color: Warm Amber (#ffb86c)<br>
+        Font: Plus Jakarta Sans (Bold)<br>
+        Theme: Structured Array / Context Capture
+      </div>
+    </div>
+  </div>
+
+  <p class="export-note">
+    To view this design portfolio, open <code>C:\Users\shami\OneDrive\Desktop\PROJECTS\Cassandra\scratch\logos.html</code> in any web browser.
+  </p>
+
+  <script>
+    // Spotlight Hover Card Logic
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      });
+    });
+  </script>
+</body>
+</html>
