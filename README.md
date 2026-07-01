@@ -1,4 +1,91 @@
-# Cassandra: Context-Aware PR Reviewer (Track A)
+# Cassandra: PR Review App
+
+Cassandra is a context‑aware Pull Request review tool that walks a repository, chunks files at function/class/file boundaries, generates text embeddings using **Gemini API**, indexes them in a persistent Chroma DB, and retrieves relevant code context (similar code and caller sites) when evaluating PR diffs.
+
+It includes a Manifest V3 Chrome extension that parses diffs from GitHub PR pages, posts them to a local review backend, and renders summary evaluations and line‑by‑line comments directly in the GitHub UI.
+
+---
+
+## Workspace Setup
+
+> [!IMPORTANT]
+> **Active Workspace Recommendation**: Set the project root folder `C:/Users/shami/.gemini/antigravity/scratch/cassandra` as your active workspace in your IDE (VS Code, etc.) for correct relative paths and script execution.
+
+### 1. Install Dependencies
+Ensure you have Python 3.8+ installed. Install the required libraries:
+```bash
+pip install chromadb fastapi uvicorn
+```
+
+### 2. Configure Environment
+Copy the example environment file and add your Gemini API key:
+```bash
+cp .env.example .env
+```
+Inside `.env`, populate:
+```env
+GEMINI_API_KEY=your-gemini-api-key-here
+```
+
+---
+
+## Part 1: Repo Indexer & Retrieval
+
+### Running the CLI Indexer
+The CLI wipes out any previous indices for the given repository ID and indexes the codebase from scratch (using a content‑hash caching mechanism to skip re‑embedding unchanged functions):
+```bash
+python indexer/reindex.py --repo-path <path-to-your-local-repo> --repo-id <unique-repo-id>
+```
+On completion, it prints a summary of files indexed, chunks created, cache hits, and new embeddings generated.
+
+### Using Context Retrieval
+Backend services import `retrieve_context` to fetch similarity matches and callers:
+```python
+from indexer.retrieval import retrieve_context
+
+results = retrieve_context(
+    diff_chunk="def calculate_sum(x: int, y: int): ...",
+    repo_id="my-repo",
+    top_k=5
+)
+```
+Returns a list of matching code snippets with scores and relation types.
+
+### Running Tests
+```bash
+python -m unittest tests/test_chunker.py
+python -m unittest tests/test_retrieval.py
+```
+
+---
+
+## Part 2: Chrome Extension
+
+### 1. Load the Extension in Chrome
+1. Open `chrome://extensions/`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select the `extension` folder inside this project directory.
+
+### 2. Run the Review Server
+We provide a local review server (stub) for end‑to‑end testing:
+```bash
+python cassandra_backend.py
+```
+This runs on `http://localhost:8000`.
+
+### 3. Review a PR
+1. Navigate to a GitHub PR files tab.
+2. The **Cassandra Reviewer** panel appears in the bottom‑right.
+3. Click **Run Cassandra Review** to send diffs to the local server and display AI‑generated feedback.
+
+The UI adapts to both light and dark GitHub themes.
+
+---
+
+## License
+MIT License
+
 
 Cassandra is a context-aware Pull Request review tool that walks a repository, chunks files at function/class/file boundaries, generates text embeddings using OpenAI, indices them in a persistent Chroma DB, and retrieves relevant code context (similar code and caller sites) when evaluating PR diffs. 
 
